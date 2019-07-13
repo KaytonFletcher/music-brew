@@ -1,0 +1,1 @@
+<h1>Hell world: <%= @access_token %></h1>

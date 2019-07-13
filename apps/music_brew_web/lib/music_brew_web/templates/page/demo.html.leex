@@ -1,0 +1,28 @@
+
+<div style="display: flex; flex-direction: row;">
+
+<div style="flex:1;">
+  <%= for song <- @playlist do %>
+       <div style=" background-color: red; height: 50px; width: 300px;" >
+       <p><%= song.title %> - <% song.value %></p> 
+        </div>
+      <% end %>
+</div>
+
+
+<div style="flex: 1;">
+ 
+   
+      <%= for song <- @library do %>
+       <div phx-click="add_song_to_playlist" phx-value="<%= song.title %>" style=" background-color: blue; height: 50px; width: 300px;" >
+       <p><%= song.title %> - <span><%= song.artist%></span></p> 
+        </div>
+      <% end %>
+</div>
+</div>
+
+<%#   <div phx-keyup="send_message" phx-target="window" >
+    <button>Send Message</button>
+    <div class="send-message">
+      Status: <%= @message %>
+   
