@@ -8,23 +8,19 @@ defmodule MusicBrewWeb.PartyView do
 
 
   def mount(_session, socket) do
-    {:ok, assign(socket, message: "Ready!", playlist: create_playlist(),
+    {:ok, assign(socket, message: "Ready!", playlist: [],
     library: [ %{title: "That Green Gentlemen", artist: "Panic at the disco"},
     %{title: "Thank you for the venom", artist: "My Chemical Romance"}
     ])}
   end
 
-  # def handle_event("song_value_inc", , socket) do
-  #   {:noreply, assign(socket, playlist: Enum.sort(socket.assigns.playlist))}
-  # end
-
   def handle_event("inc_song_rank", index, socket) do
-    {:noreply, assign(socket, playlist: inc_song(socket.assigns.playlist, index))}
+    {:noreply, assign(socket, playlist: inc_song(socket.assigns.playlist, String.to_integer(index)))}
   end
 
-
+#FOR ERROR CHECKING CONVERT String.to_integer() to Integer.parse()
   def handle_event("dec_song_rank", index, socket) do
-    {:noreply, assign(socket, playlist: dec_song(socket.assigns.playlist, index))}
+    {:noreply, assign(socket, playlist: dec_song(socket.assigns.playlist, String.to_integer(index)))}
   end
 
 
