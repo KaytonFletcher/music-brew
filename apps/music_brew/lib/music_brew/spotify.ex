@@ -16,6 +16,7 @@ defmodule MusicBrew.Spotify do
     headers
   end
 
+  @spec get_authorize_route :: <<_::64, _::_*8>>
   def get_authorize_route() do
     scope = "user-read-private user-read-email playlist-read-private playlist-modify-private playlist-modify-public"
 
