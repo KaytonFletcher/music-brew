@@ -18,8 +18,7 @@ defmodule MusicBrewUmbrella.MixProject do
     [
       {:ecto_sql, "~> 3.1"},
       {:postgrex, "~> 0.14.1"},
-      {:httpoison, "~> 1.4"},
-      {:heap, "~> 2.0.2"}
+      {:httpoison, "~> 1.4"}
     ]
   end
 end

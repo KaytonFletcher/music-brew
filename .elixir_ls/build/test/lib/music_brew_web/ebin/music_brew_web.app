@@ -16,6 +16,8 @@
                         'Elixir.MusicBrewWeb.LayoutView',
                         'Elixir.MusicBrewWeb.PageController',
                         'Elixir.MusicBrewWeb.PageView',
+                        'Elixir.MusicBrewWeb.PartyChannel',
+                        'Elixir.MusicBrewWeb.PartyController',
                         'Elixir.MusicBrewWeb.PartyView',
                         'Elixir.MusicBrewWeb.Router',
                         'Elixir.MusicBrewWeb.Router.Helpers',

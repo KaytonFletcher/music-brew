@@ -2,7 +2,7 @@ defmodule MusicBrewWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", MusicBrewWeb.RoomChannel
+  #channel "party:*", MusicBrewWeb.PartyChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

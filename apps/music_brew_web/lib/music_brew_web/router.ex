@@ -22,6 +22,7 @@ defmodule MusicBrewWeb.Router do
     get "/spotify/login", SpotifyController, :auth
     get "/callback", SpotifyController, :getAccessToken
     get "/spotify/landing", SpotifyController, :new
+    get "/parties/:id", PartyController, :index
   end
 
   # Other scopes may use custom stacks.
