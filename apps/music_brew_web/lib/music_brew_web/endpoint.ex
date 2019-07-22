@@ -1,7 +1,8 @@
 defmodule MusicBrewWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :music_brew_web
 
-  socket "/live", Phoenix.LiveView.Socket
+  #socket "/live", Phoenix.LiveView.Socket
+  socket "/live", MusicBrewWeb.LiveSocket
 
   socket "/socket", MusicBrewWeb.UserSocket,
     websocket: true,

@@ -8,8 +8,6 @@
                         'Elixir.HTTPoison.AsyncResponse',
                         'Elixir.HTTPoison.AsyncStatus',
                         'Elixir.HTTPoison.Base','Elixir.HTTPoison.Error',
-                        'Elixir.HTTPoison.Handlers.Multipart',
-                        'Elixir.HTTPoison.Request',
                         'Elixir.HTTPoison.Response']},
               {registered,[]},
-              {vsn,"1.5.1"}]}.
+              {vsn,"1.0.0"}]}.

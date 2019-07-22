@@ -24,7 +24,8 @@ defmodule MusicBrewWeb.MixProject do
   def application do
     [
       mod: {MusicBrewWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :spotify_ex]
+
     ]
   end
 

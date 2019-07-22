@@ -8,7 +8,7 @@ defmodule MusicBrewWeb.Router do
     plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug MusicBrewWeb.Authenticator
+    #plug MusicBrewWeb.Authenticator
   end
 
   pipeline :api do
@@ -19,9 +19,8 @@ defmodule MusicBrewWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/spotify/login", SpotifyController, :auth
-    get "/callback", SpotifyController, :getAccessToken
-    get "/spotify/landing", SpotifyController, :new
+    get "/spotify/login", SpotifyController, :authorize
+    get "/spotify/callback", SpotifyController, :authenticate
     get "/parties/:id", PartyController, :index
   end
 

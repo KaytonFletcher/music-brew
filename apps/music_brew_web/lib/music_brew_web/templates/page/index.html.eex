@@ -1,4 +1,1 @@
-<div style="background-color: blue; height: 50px; width: 300px;" >
-
-
-</div>
+<button> <%= link("Create Party", to: Routes.spotify_path(@conn, :authorize)) %> </button>

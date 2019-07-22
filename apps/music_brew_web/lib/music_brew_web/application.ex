@@ -9,7 +9,8 @@ defmodule MusicBrewWeb.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      MusicBrewWeb.Endpoint
+      MusicBrewWeb.Endpoint,
+      {Registry, [keys: :unique, name: Registry.SessionRegistry]}
       # Starts a worker by calling: MusicBrewWeb.Worker.start_link(arg)
       # {MusicBrewWeb.Worker, arg},
     ]
