@@ -1,15 +1,4 @@
 
-<style>
-  .main-wrapper{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .playlist-song-wrapper{
-    display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
-  }
-</style>
 
 <%= tag :meta, name: "channel_token", content: @token %>
 <%= tag :meta, name: "access_token", content: @spotify_creds.access_token %>
@@ -17,22 +6,23 @@
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <div class="main-wrapper">
 
-<div class="playlist-song-wrapper">
+<div class="playlist-wrapper">
   <%= for {song, index} <- Enum.with_index(@playlist) do %>
     
-       <div style="background-color: orange; height: 50px; width: 300px;" >
-       <p><%= song.name %> - <%= song.rank %></p> 
-        </div>
+    <div class="song-card playlist-card" >
+      <p><%= song.name %></p> 
+    </div>
 
-        <div phx-click="inc_song_rank" phx-value="<%= index %>" style="background-color: green; height: 25px; width: 50px;">Up</div>
-        <div phx-click="dec_song_rank" phx-value="<%= index %>" style="background-color: red; height: 25px; width: 50px; ">Down</div>
-      <% end %>
+    <div phx-click="inc_song_rank" phx-value="<%= index %>" class="increment-btn">Up</div>
+    <span class="song-rank"><%= song.rank %></span>
+    <div phx-click="dec_song_rank" phx-value="<%= index %>" class="decrement-btn">Down</div>
+  <% end %>
 </div>
 
 
-<div>
+<div class="library-wrapper">
       <%= for song <- @library do %>
-       <div phx-click="add_song_to_playlist" phx-value="<%= song.id %>" style=" background-color: blue; height: 50px; width: 300px;" >
+       <div phx-click="add_song_to_playlist" phx-value="<%= song.id %>" class="song-card library-card" >
        <b><%= song.name %></b> 
         <br/>
           <%= for artist <- song.artists do %>

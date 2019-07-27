@@ -135,3 +135,71 @@ header nav a {
 
 /* This file is for your main application css. */
 
+:root {  
+    --dark-purple: #442f4f;  
+    --purple: #643579;  
+    --pink: #aa94b5;  
+    --biege: #f5edf7;
+}
+
+html {  
+    background: var(--dark-purple);   
+}
+
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.playlist-wrapper {
+    display: grid;
+    grid-template-columns: 6fr 1fr 0.5fr 1fr;
+    align-content: start;
+}
+
+.playlist-wrapper > .playlist-card {
+    background-color: var(--biege); 
+    width: auto;
+}
+
+.increment-btn{
+    background-color: green;
+    height: 25px;
+    width: 50px;
+    align-self: center;
+    justify-self: center;
+}
+
+.decrement-btn{
+    background-color: red;
+    height: 25px;
+    width: 50px;
+    align-self: center;
+    justify-self: center;
+}
+
+.song-card {
+    min-height: 60px; 
+    width: 300px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.library-card {
+    background-color: var(--pink); 
+}
+/* 
+.library-wrapper {
+    align-self: end; 
+} */
+
+/* Insures top border still exists */
+/* .library-wrapper > .library-card:first-child{
+    border-top-width: 2px;
+} */
+/* Removes before from every other track, to make width consistent */
+/* .library-card:nth-of-type(odd) {
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+} */
+
