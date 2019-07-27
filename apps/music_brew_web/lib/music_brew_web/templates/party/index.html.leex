@@ -11,11 +11,8 @@
   }
 </style>
 
-
-
-
 <%= tag :meta, name: "channel_token", content: @token %>
-<%= tag :meta, name: "access_token", content: @access_token %>
+<%= tag :meta, name: "access_token", content: @spotify_creds.access_token %>
 
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <div class="main-wrapper">
@@ -24,7 +21,7 @@
   <%= for {song, index} <- Enum.with_index(@playlist) do %>
     
        <div style="background-color: orange; height: 50px; width: 300px;" >
-       <p><%= song.title %> - <%= song.rank %></p> 
+       <p><%= song.name %> - <%= song.rank %></p> 
         </div>
 
         <div phx-click="inc_song_rank" phx-value="<%= index %>" style="background-color: green; height: 25px; width: 50px;">Up</div>
@@ -35,8 +32,12 @@
 
 <div>
       <%= for song <- @library do %>
-       <div phx-click="add_song_to_playlist" phx-value="<%= song.title %>" style=" background-color: blue; height: 50px; width: 300px;" >
-       <p><%= song.title %> - <span><%= song.artist%></span></p> 
+       <div phx-click="add_song_to_playlist" phx-value="<%= song.id %>" style=" background-color: blue; height: 50px; width: 300px;" >
+       <b><%= song.name %></b> 
+        <br/>
+          <%= for artist <- song.artists do %>
+            <%= artist["name"] %>
+          <% end %>
         </div>
       <% end %>
 </div>

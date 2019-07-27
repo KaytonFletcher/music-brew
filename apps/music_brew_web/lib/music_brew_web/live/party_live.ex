@@ -2,27 +2,26 @@ defmodule MusicBrewWeb.PartyLive do
   use Phoenix.LiveView
   import MusicBrew.PlayList
 
-  @library [%{title: "That Green Gentlemen", artist: "Panic at the disco"},
-  %{title: "Thank you for the venom", artist: "My Chemical Romance"}]
+  # @library [%{title: "That Green Gentlemen", artist: "Panic at the disco"},
+  # %{title: "Thank you for the venom", artist: "My Chemical Romance"}]
 
   defp topic(party_id), do: "party:#{party_id}"
 
   def render(assigns) do
-    IO.puts("assigns")
-    IO.inspect(assigns)
     MusicBrewWeb.PartyView.render("index.html", assigns)
   end
 
-  def mount(%{party_id: party_id,  session_uuid: session_uuid, access_token: access_token}, socket) do
-    IO.puts("SESSION ID" <> session_uuid)
+  def mount(%{party_id: party_id,  session_uuid: session_uuid, spotify_creds: spotify_creds}, socket) do
+
     MusicBrewWeb.Endpoint.subscribe(topic(party_id))
+    tracks = MusicBrew.Library.getTracks(spotify_creds)
 
     send(self(), {:send_to_event_bus, "playlist_mounted"})
     {:ok, assign(socket,
     party_id: party_id,
+    spotify_creds: spotify_creds,
     playlist: [],
-    access_token: access_token,
-    library: @library,
+    library: tracks,
     session_uuid: session_uuid,
     token: Phoenix.Token.sign(MusicBrewWeb.Endpoint, "user salt", session_uuid))}
   end
@@ -40,8 +39,10 @@ defmodule MusicBrewWeb.PartyLive do
     {:noreply, assign(socket, playlist: playlist)}
   end
 
-  def handle_event("add_song_to_playlist", title, socket) do
-    playlist = add_song(socket.assigns.playlist, %{title: title, rank: 0, id: Enum.random(0..100000)})
+  def handle_event("add_song_to_playlist", id, socket) do
+    track = MusicBrew.Library.getSongById(socket.assigns.spotify_creds, id)
+
+    playlist = add_song(socket.assigns.playlist, Map.put(track, :rank, 0))
     MusicBrewWeb.Endpoint.broadcast_from(self(), topic(socket.assigns.party_id), "playlist_updated", %{playlist: playlist})
     send(self(), {:send_to_event_bus, "playlist_updated"})
     {:noreply, assign(socket, playlist: playlist)}

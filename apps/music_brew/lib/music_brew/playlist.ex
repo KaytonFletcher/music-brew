@@ -1,7 +1,7 @@
 defmodule MusicBrew.PlayList do
 
-  def add_song(playlist , %{rank: rank, title: title, id: id}) when is_list(playlist) do
-     [%{rank: rank, title: title, id: id} | playlist]
+  def add_song(playlist , %{rank: rank, name: name, id: id, artists: artists, uri: uri}) when is_list(playlist) do
+     [%{rank: rank, name: name, id: id, artists: artists, uri: uri} | playlist]
     |> sort_playlist
   end
 
