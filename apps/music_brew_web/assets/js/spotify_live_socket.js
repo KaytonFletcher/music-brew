@@ -3,6 +3,7 @@ import LiveSocket from "phoenix_live_view"
 
 const channelToken = document.getElementsByTagName('meta')[3].content;
 const accessToken = document.getElementsByTagName('meta')[4].content;
+console.log("YEET" + JSON.stringify(document.getElementsByTagName('meta')[4].name))
 
 let liveSocket = new LiveSocket("/live", {params: {channel_token: channelToken}});
 liveSocket.connect();
@@ -23,9 +24,6 @@ if(match) {
         console.log("MESSAGE RECEIVED BITCH");
     });
 
-    channel.on("playlist_mounted", function() {
-        
-    });
 
     window.onSpotifyWebPlaybackSDKReady = () => {
         // You can now initialize Spotify.Player and use the SDK
@@ -52,25 +50,53 @@ if(match) {
           player.on('ready', data => {
             console.log('Ready with Device ID', data.device_id);
             
+            
+
+            channel.on('play', () => {
+              //Gets first song uri in playlist and plays it
+              let uri = document.querySelector("[name~=song-uri][content]").content;
+              if(uri){
+                play(data.device_id, uri);
+               
+                    
+        
+            }
+            });
+           
             // Play a track using our new device ID
-            play(data.device_id);
+            //play(data.device_id);
           });
+
+          player.addListener('player_state_changed', (state) => {
+         
+                   
+            if(state.duration - state.position < 100){
+              console.log("SONG HAS ENDED");
+              channel.push("remove_song", {partyId: partyId});
+            }
+            console.log(state);
+          });
+;
+         
           // Connect to the player!
           player.connect();
     }
     
 }
 
-function play(device_id) {
+function getNextSong() {
+
+}
+
+function play(device_id, trackURI) {
 
     fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
       method: 'PUT',
-      body: JSON.stringify({ uris: ["spotify:track:5ya2gsaIhTkAuWYEMB0nw5"] }),
+      body: JSON.stringify({ uris: [trackURI] }),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       }
     });
-};
-
+}
 

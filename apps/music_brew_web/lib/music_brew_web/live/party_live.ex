@@ -26,6 +26,12 @@ defmodule MusicBrewWeb.PartyLive do
     token: Phoenix.Token.sign(MusicBrewWeb.Endpoint, "user salt", session_uuid))}
   end
 
+  def handle_event("play", _value, socket) do
+    IO.puts("SENDING PLAY")
+    send(self(), {:send_to_event_bus, "play"})
+    {:noreply, socket}
+  end
+
   def handle_event("inc_song_rank", index, socket) do
     playlist = inc_song(socket.assigns.playlist, String.to_integer(index))
     MusicBrewWeb.Endpoint.broadcast_from(self(), topic(socket.assigns.party_id), "playlist_updated", %{playlist: playlist})
@@ -60,4 +66,13 @@ defmodule MusicBrewWeb.PartyLive do
     send(channel_pid, msg)
     {:noreply, socket}
   end
+
+  def handle_info(%Phoenix.Socket.Broadcast{event: "remove_song"}, socket) do
+    playlist = case socket.assigns.playlist do
+      [_hd | tl ] -> tl
+    end
+    {:noreply, assign(socket, playlist: playlist)}
+ end
+
+
 end

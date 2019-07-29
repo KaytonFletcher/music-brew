@@ -5,9 +5,17 @@ defmodule MusicBrewWeb.PartyChannel do
     {:ok, socket}
   end
 
+
+  #Sends messages to client live view channel
   def handle_info(msg, socket) do
-    IO.puts("HANDLING NEW MESSAGE")
     push(socket, msg, %{})
+    {:noreply, socket}
+  end
+
+  #Recieves message from client's music player
+  def handle_in("remove_song", %{ "partyId" => partyId}, socket) do
+    IO.puts("handling song removal")
+    MusicBrewWeb.Endpoint.broadcast_from!(self(), "party:#{partyId}", "remove_song", %{})
     {:noreply, socket}
   end
 

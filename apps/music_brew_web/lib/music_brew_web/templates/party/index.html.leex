@@ -7,11 +7,14 @@
 <div class="main-wrapper">
 
 <div class="playlist-wrapper">
+
+<img  phx-click="play" id="play-button"  type="image/svg+xml" src="<%= Routes.static_path(MusicBrewWeb.Endpoint, "/images/PlayButton.svg") %>">
+
   <%= for {song, index} <- Enum.with_index(@playlist) do %>
-    
     <div class="song-card playlist-card" >
       <p><%= song.name %></p> 
     </div>
+    <%= tag :meta, name: "song-uri", content: song.uri %>
 
     <div phx-click="inc_song_rank" phx-value="<%= index %>" class="increment-btn">Up</div>
     <span class="song-rank"><%= song.rank %></span>
@@ -23,10 +26,10 @@
 <div class="library-wrapper">
       <%= for song <- @library do %>
        <div phx-click="add_song_to_playlist" phx-value="<%= song.id %>" class="song-card library-card" >
-       <b><%= song.name %></b> 
+       <b class="library-song-name"><%= song.name %></b> 
         <br/>
           <%= for artist <- song.artists do %>
-            <%= artist["name"] %>
+            <span class="library-artist-name"> <%= artist["name"] %> </span>
           <% end %>
         </div>
       <% end %>

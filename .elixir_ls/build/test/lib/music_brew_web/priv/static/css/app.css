@@ -136,14 +136,16 @@ header nav a {
 /* This file is for your main application css. */
 
 :root {  
-    --dark-purple: #442f4f;  
-    --purple: #643579;  
-    --pink: #aa94b5;  
-    --biege: #f5edf7;
+    --dark-purple: #0e0034;  
+    --purple: #08001d;     
+    --pink: #aa94b5; 
+    --lavendar: #ac8eff; 
 }
 
 html {  
-    background: var(--dark-purple);   
+    background: var(--dark-purple);  
+}body {
+    color: white;
 }
 
 .main-wrapper {
@@ -152,13 +154,22 @@ html {
 }
 
 .playlist-wrapper {
+    
     display: grid;
+    /* grid-template-rows: 100px auto; */
     grid-template-columns: 6fr 1fr 0.5fr 1fr;
     align-content: start;
 }
 
+#play-button {
+    width: 50px;
+    justify-self: center;
+    grid-column-start: 1; 
+    grid-column-end: 5; 
+}
+
 .playlist-wrapper > .playlist-card {
-    background-color: var(--biege); 
+    background-color: var(--purple); 
     width: auto;
 }
 
@@ -166,6 +177,12 @@ html {
     background-color: green;
     height: 25px;
     width: 50px;
+    align-self: center;
+    justify-self: center;
+}
+
+.song-rank {
+    color: white;
     align-self: center;
     justify-self: center;
 }
@@ -186,7 +203,19 @@ html {
 }
 
 .library-card {
-    background-color: var(--pink); 
+    background-color: var(--purple); 
+    padding: 10px;
+}
+
+.library-card:hover {
+    background-color: var(--lavendar); 
+    min-height: 60px; 
+    width: 330px;
+    
+}
+
+.library-artist-name {
+
 }
 /* 
 .library-wrapper {
