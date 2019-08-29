@@ -14,7 +14,6 @@
                         'Elixir.MusicBrewWeb.ErrorView',
                         'Elixir.MusicBrewWeb.Gettext',
                         'Elixir.MusicBrewWeb.LayoutView',
-                        'Elixir.MusicBrewWeb.LiveSocket',
                         'Elixir.MusicBrewWeb.PageController',
                         'Elixir.MusicBrewWeb.PageView',
                         'Elixir.MusicBrewWeb.PartyChannel',

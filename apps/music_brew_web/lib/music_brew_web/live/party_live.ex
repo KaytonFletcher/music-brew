@@ -11,24 +11,26 @@ defmodule MusicBrewWeb.PartyLive do
     MusicBrewWeb.PartyView.render("index.html", assigns)
   end
 
-  def mount(%{party_id: party_id,  session_uuid: session_uuid, spotify_creds: spotify_creds}, socket) do
+  def mount(%{party_id: party_id,  session_uuid: _session_uuid, spotify_creds: spotify_creds}, socket) do
 
+    # Subscribes client to specific channel based on url -> /parties/:id
     MusicBrewWeb.Endpoint.subscribe(topic(party_id))
     tracks = MusicBrew.Library.getTracks(spotify_creds)
 
-    send(self(), {:send_to_event_bus, "playlist_mounted"})
+    #send(self(), {:send_to_event_bus, "playlist_mounted"})
+
     {:ok, assign(socket,
     party_id: party_id,
     spotify_creds: spotify_creds,
     playlist: [],
-    library: tracks,
-    session_uuid: session_uuid,
-    token: Phoenix.Token.sign(MusicBrewWeb.Endpoint, "user salt", session_uuid))}
+    library: tracks) }
+    #session_uuid: session_uuid,
+    #token: Phoenix.Token.sign(MusicBrewWeb.Endpoint, "user salt", session_uuid))}
   end
 
   def handle_event("play", _value, socket) do
-    IO.puts("SENDING PLAY")
-    send(self(), {:send_to_event_bus, "play"})
+    IO.puts("Playing song")
+    #send(self(), {:send_to_event_bus, "play"})
     {:noreply, socket}
   end
 
@@ -50,7 +52,8 @@ defmodule MusicBrewWeb.PartyLive do
 
     playlist = add_song(socket.assigns.playlist, Map.put(track, :rank, 0))
     MusicBrewWeb.Endpoint.broadcast_from(self(), topic(socket.assigns.party_id), "playlist_updated", %{playlist: playlist})
-    send(self(), {:send_to_event_bus, "playlist_updated"})
+
+    #send(self(), {:send_to_event_bus, "playlist_updated"})
     {:noreply, assign(socket, playlist: playlist)}
   end
 
@@ -59,20 +62,25 @@ defmodule MusicBrewWeb.PartyLive do
     {:noreply, assign(socket, state)}
   end
 
-  def handle_info({:send_to_event_bus, msg}, socket = %{assigns: %{session_uuid: session_uuid}}) do
-    # send a message to the channel here!
-    IO.puts("SENDING MESSAGE FROM PARTY VIEW")
-    [{_pid, channel_pid}] = Registry.lookup(Registry.SessionRegistry, session_uuid)
-    send(channel_pid, msg)
-    {:noreply, socket}
-  end
 
-  def handle_info(%Phoenix.Socket.Broadcast{event: "remove_song"}, socket) do
-    playlist = case socket.assigns.playlist do
-      [_hd | tl ] -> tl
-    end
-    {:noreply, assign(socket, playlist: playlist)}
- end
+  # def handle_info({:send_to_event_bus, msg}, socket = %{assigns: %{session_uuid: session_uuid}}) do
+  #   # send a message to the channel here!
+  #   IO.puts("SENDING MESSAGE FROM PARTY VIEW")
+  #   [{_pid, channel_pid}] = Registry.lookup(Registry.SessionRegistry, session_uuid)
+  #   send(channel_pid, msg)
+  #   {:noreply, socket}
+  # end
+
+#   def handle_info(%Phoenix.Socket.Broadcast{event: "remove_song"}, socket) do
+#     playlist = case socket.assigns.playlist do
+#       [_hd | tl ] -> tl
+#     end
+#     {:noreply, assign(socket, playlist: playlist)}
+#  end
+
+def handle_info(event, socket) do
+  IO.inspect(event, label: "Unknown Event")
+end
 
 
 end

@@ -1,7 +1,7 @@
 {application,phoenix_live_view,
              [{applications,[kernel,stdlib,elixir,logger,phoenix_html,
                              phoenix]},
-              {description,"phoenix_live_view"},
+              {description,"Rich, real-time user experiences with server-rendered HTML\n"},
               {modules,['Elixir.Phoenix.HTML.Safe.Phoenix.LiveView.Comprehension',
                         'Elixir.Phoenix.HTML.Safe.Phoenix.LiveView.Rendered',
                         'Elixir.Phoenix.LiveView',
@@ -22,5 +22,5 @@
                         'Elixir.Phoenix.LiveViewTest.DOM',
                         'Elixir.Phoenix.LiveViewTest.View']},
               {registered,[]},
-              {vsn,"0.1.0"},
+              {vsn,"0.1.1"},
               {mod,{'Elixir.Phoenix.LiveView.Application',[]}}]}.

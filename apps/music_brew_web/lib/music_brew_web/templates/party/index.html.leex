@@ -1,15 +1,13 @@
 
 
-<%= tag :meta, name: "channel_token", content: @token %>
 <%= tag :meta, name: "access_token", content: @spotify_creds.access_token %>
 
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 <div class="main-wrapper">
 
-<div class="playlist-wrapper">
+<img  phx-hook="PlayButton" id="play-button"  type="image/svg+xml" src="<%= Routes.static_path(MusicBrewWeb.Endpoint, "/images/PlayButton.svg") %>">
 
-<img  phx-click="play" id="play-button"  type="image/svg+xml" src="<%= Routes.static_path(MusicBrewWeb.Endpoint, "/images/PlayButton.svg") %>">
-
+<div phx-hook="PlayList" class="playlist-wrapper">
   <%= for {song, index} <- Enum.with_index(@playlist) do %>
     <div class="song-card playlist-card" >
       <p><%= song.name %></p> 

@@ -18,7 +18,10 @@ defmodule MusicBrewWeb.Router do
   scope "/", MusicBrewWeb do
     pipe_through :browser
 
+    #Landing route, provides initial options
     get "/", PageController, :index
+    
+    
     get "/spotify/login", SpotifyController, :authorize
     get "/spotify/callback", SpotifyController, :authenticate
     get "/parties/:id", PartyController, :index

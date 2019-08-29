@@ -1,6 +1,5 @@
 defmodule MusicBrewWeb.SpotifyController do
   use MusicBrewWeb, :controller
-  # import MusicBrew.Spotify, only: [get_authorize_route: 0, get_access_token: 1]
 
   def authorize(conn, _params) do
     conn |>
